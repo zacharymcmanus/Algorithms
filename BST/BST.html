@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Binary Search Tree</title>
+</head>
+
+<body>
+    <script>
+        function BST() {
+            this.root = null;
+        }
+        BST.prototype.newNode = function(val){
+            this.val = val;
+            this.left = null;
+            this.right = null;
+        }
+        // insert new node into a Binary Search Tree
+        BST.prototype.add = function (val) {
+            //set a runner
+            var runner = this.root;
+            //create new node
+            var newNode = new BST.prototype.newNode(val)
+            // Check if tree has a root, if not set root to new node
+            if (!this.root) {
+                this.root = newNode;
+            } else {
+                // loop while runner exists
+                while (runner) {
+                    // Check if runners value is greater than new value
+                    if (runner.val >= val) {
+                        // Check if runner has a left node
+                        if (!runner.left) {
+                            // If not set runners left to new node and return tree
+                            runner.left = newNode;
+                            return this;
+                        } else {
+                            // If runner does have a left move runner forward
+                            runner = runner.left;
+                        }
+                        // Else if runners value is less than new value
+                    } else { 
+                        // check if runner has a right node
+                        if (runner.right == null) {
+                            // if right node does not exist set right node to new node return tree
+                            runner.right = newNode;
+                            return this;
+                        } else {
+                            // move runner forward
+                            runner = runner.right;
+                        }
+                    }
+                }
+            }
+        }
+        //=========================
+        //      TREE TRAVERSAL
+        //=========================
+        // inorder tree traversal
+        BST.prototype.inOrder = function(){
+            if(this.root == null){
+                return null;
+            } else {
+                var results = [];
+                function traverseInOrder(node){
+                    // && = short circut evaluation
+                    // When javascript reads two anpersand signs &&
+                    // if the first thing is true it will also run the second command
+                    node.left && traverseInOrder(node.left);
+                    results.push(node.val);
+                    node.right && traverseInOrder(node.right);
+                }
+                traverseInOrder(this.root);
+                return results;
+            }
+        }
+        // Traverse the tree printing nodes from left to right one branch at a time
+        BST.prototype.preOrder = function(){
+            if(this.root == null){
+                return null;
+            } else {
+                var results = [];
+                function traversePreOrder(node){
+                    // && = short circut evaluation
+                    // When javascript reads two anpersand signs &&
+                    // if the first thing is true it will also run the second command
+                    results.push(node.val);
+                    node.left && traversePreOrder(node.left);
+                    node.right && traversePreOrder(node.right);
+                }
+                traversePreOrder(this.root);
+                return results;
+            }
+        }
+        // Traverse the tree printing nodes starting from all leaves
+        BST.prototype.postOrder = function(){
+            // check if BST exist
+            if(this.root == null){
+                return null;
+            } else {
+                // Declare array variable to store results
+                var results = [];
+                // Declare function to call recursively
+                function traversePostOrder(node){
+                    // && = short circut evaluation
+                    // When javascript reads two anpersand signs &&
+                    // if the first thing is true it will also run the second command
+                    // If left node exist, Call recursive function and pass in that left node
+                    node.left && traversePostOrder(node.left);
+                    // If right node exist, Call recursive function and pass in that right node
+                    node.right && traversePostOrder(node.right);
+                    // push value of node
+                    results.push(node.val);
+                }
+                traversePostOrder(this.root);
+                return results;
+            }
+        }
+        
+        // show list of node in order by level and left to right
+        // function level(tree) {
+        //     var result = [];
+        //     var que = [];
+        //     if(tree.root !== null){
+        //         que.push(tree)
+        //         while(que.length > 0){
+        //             let node = que.shift();
+        //             result.push(node.val)
+        //             if(node.left != node){
+        //                 que.push(node.left)
+        //             }
+        //             if(node.right !=null){
+        //                 que.push(node.right)
+        //             }
+        //         }
+        //         return result;
+        //     } else {
+        //         return null;
+        //     }
+        // }
+        BST.prototype.levelOrder = function (){
+            var result = [];
+            var Q =[];
+            if(this.root != null){
+                Q.push(this.root)
+                while(Q.length > 0){
+                    let node = Q.shift();
+                    result.push(node.val);
+                    if(node.left != null){
+                        Q.push(node.left)
+                    };
+                    if(node.right != null){
+                        Q.push(node.right);
+                    }
+                }
+                return result;
+            }else {
+                return null;
+            };
+        }
+        // level order for a tree that may not be a binary tree
+        function bfs(node) {
+            var queue = [];
+            var currentNode = null;
+            var result = [];
+            var childNodes = [];
+            queue.push(node);
+            while (queue.length) {
+            currentNode = queue.shift();
+            result.push(currentNode.value);
+            childNodes = currentNode.childNodes;
+            for (let i = 0, l = childNodes.length; i < l; i++) {
+                queue.push(childNodes[i]);
+            }
+            }
+            return result.join(' ');
+        }
+        // Find min height
+        function minHeight (node){
+            if(node == null){
+                return -1;
+            };
+            let left = this.maxHeight(node.left);
+            let right = this.maxHeight(node.right);
+            if(left < right){
+                return left + 1;
+            } else {
+                return right + 1;
+            }
+        }
+        // // Find max height
+        function maxHeight  (node){
+            if(node == null){
+                return -1;
+            };
+            let left = this.maxHeight(node.left);
+            let right = this.maxHeight(node.right);
+            if(left > right){
+                return left + 1;
+            } else {
+                return right + 1;
+            }
+        }
+        
+        myTre = new BST();
+        
+        myTre.add(15)
+        myTre.add(14)
+        myTre.add(13)
+        myTre.add(12)
+        myTre.add(10)
+        myTre.add(1)
+        myTre.add(17)
+        myTree = new BST();
+        myTree.add(12)
+        myTree.add(17)
+        myTree.add(13)
+        myTree.add(19)
+        myTree.add(6)
+        myTree.add(8)
+        myTree.add(2)
+        myTree.add(3)
+        myTree.add(4)
+        myTree.add(1)
+        myTree.add(11)
+        myTree.add(14)
+        myTree.add(18)
+        myTree.add(20)
+        console.log(myTree)
+        console.log(myTre)
+        console.log("In Order: ",myTree.inOrder())
+        console.log("Pre Order", myTree.preOrder())
+        console.log("Post Order", myTree.postOrder())
+        console.log("Level Order"+ myTree.levelOrder())
+        // console.log("Level Order", level(myTree))
+        console.log("Min Height: ", minHeight(myTree.root))
+        console.log("Min Height: ", minHeight(myTre.root))
+        console.log("Max Height: ", maxHeight(myTree.root))
+        console.log("Max Height: ", maxHeight(myTre.root)) 
+    </script>
+</body>
+
+</html>

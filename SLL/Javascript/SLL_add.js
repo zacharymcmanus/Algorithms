@@ -17,7 +17,7 @@ function SLL(list) {
     this.head = null;
 }
 
-// Mode Constructor
+// Node Constructor
 function Node(value) {
     this.value = value;
     this.next = null;
@@ -30,7 +30,7 @@ mylist.head.next = new Node("B");
 mylist.head.next.next = new Node("C");
 mylist.head.next.next.next = new Node("D");
 
-// Function addToList
+// Add Node Function
 function addToList(list, val) {
     var newnode = new Node(val);
     if (!list.head) {
