@@ -41,6 +41,16 @@ BST.prototype.add = function(val) {
     }
 }
 
+BST.prototype.remove = function(val) {
+    var root = this.root;
+
+    if (root == null) {
+        return null;
+    } else if {
+        
+    }
+}
+
 var bst = new BST();
 bst.add(3);
 bst.add(2);
