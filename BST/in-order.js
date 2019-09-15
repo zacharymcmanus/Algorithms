@@ -56,7 +56,7 @@ BSTNode.prototype.height() {
     return Math.max(LH,RH) + 1;
 }
 
-BST.prototype.getHeight(){
+BSTNode.prototype.getHeight(){
     if(this.root) {
         this.root.height();
         return this.root.height();

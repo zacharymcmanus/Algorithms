@@ -34,7 +34,7 @@ console.log(selectionSort(uA));
 // Solution #2 
 var arr = [1, 3, 2];
 
-function selectionSort(arr) {
+function selectionSort2(arr) {
     var i, j, minIx, minVal;
 
     for (i = 0; i < arr.length; i++) {
@@ -50,4 +50,25 @@ function selectionSort(arr) {
     return arr;
 }
 
-console.log(selectionSort(arr));
+console.log(selectionSort2(arr));
+
+// Solution #3
+function selectionSort3 (arr) {
+    for (let i = 0; i < arr.length; i++) {
+        let indexOfMin = i;
+
+        for (let j = 1+1; j < arr.length; j++) {
+            if (arr[j] < arr[indexOfMin]) {
+                if (arr[j] < arr[indexOfMin]) {
+                    indexOfMin = j;
+                }
+            }
+        }
+    }
+    if (indexOfMin !== i) {
+        let lesser = arr[indexOfMin];
+        arr[indexOfMin] = arr[i];
+        arr[i] = lesser;
+    }
+    return arr;
+}
